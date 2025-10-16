@@ -1,37 +1,52 @@
 # Eye-Gaze Estimation with Artificial Neural Networks
 
-This repository contains the code and documentation for a bachelor's thesis on the topic of eye-gaze estimation using artificial neural networks (ANNs). The thesis explores the usage of ANNs to build a reliable eye-gaze estimation system for human-robot interaction (HRI) applications.
+A deep learning system for accurate eye-gaze estimation using convolutional neural networks, designed for natural human-robot interaction applications using standard RGB cameras.
 
-## Purpose
+## Overview
 
-The purpose of this project is to investigate the feasibility of using ANNs for estimating eye gaze without the need for special hardware or infrared (IR) filters. By leveraging standard RGB cameras, the goal is to develop a system that can accurately predict where a person is looking, enabling more natural and intuitive human-robot interactions.
+This project implements an eye-gaze estimation system that predicts where a person is looking without requiring specialized hardware or infrared filters. By combining CNNs with head pose estimation, the system achieves robust gaze tracking across diverse conditions and demographics.
 
-## Technologies Used
+## Key Features
 
-- **Convolutional Neural Networks (CNNs)**: CNNs are employed as the core technology for eye-gaze estimation, since they are one of the most successful neural network architectures when it comes to working with image data. Various architectures and configurations are explored to improve the accuracy and robustness of the models.
+- **Hardware-Free Approach**: Works with standard RGB cameras, eliminating the need for IR sensors or specialized equipment
+- **Multi-Modal Input**: Combines eye region analysis with head pose estimation for improved accuracy
+- **Diverse Training Data**: Trained on 57,000+ synthetic images featuring 15 unique characters with variations in age, ethnicity, eye color, and facial structure
+- **Real-World Applicability**: Designed for human-robot interaction scenarios with cross-dataset validation
 
-- **[Unreal Engine and Metahuman Technology](https://www.unrealengine.com/en-US/metahuman)**: Unreal Engine and Metahuman technology are utilized for generating a diverse dataset for training the eye-gaze estimation models. These technologies enable access to high-resolution human models and dynamic lighting conditions, facilitating the creation of realistic and diverse training data.
+## Technology Stack
 
-- **[RetinaFace](https://github.com/elliottzheng/face-detection)**: RetinaFace is used for face detection, enabling the localization of faces in images or video frames. This is a crucial preprocessing step for extracting eye regions for gaze estimation.
+### Core Components
 
-- **[SixDRepNet](https://github.com/thohemp/6DRepNet)**: SixDRepNet is employed for head pose estimation, providing additional input data to improve the performance of the eye-gaze estimation models.
+- **Convolutional Neural Networks (CNNs)**: Primary architecture for processing eye region images and extracting gaze features
+- **RetinaFace**: Face detection and localization for preprocessing pipeline
+- **SixDRepNet**: Head pose estimation to provide complementary spatial information
+- **Unreal Engine + Metahuman**: Synthetic data generation platform for creating diverse, high-quality training datasets
 
-## Dataset
+### Dataset
 
-A diverse dataset for eye-gaze estimation is generated using Unreal Engine and Metahuman technology. This dataset includes variations in parameters such as age, race, eye color, and face shape, as well as different lighting conditions to enhance the generalization capabilities of the models. The dataset is publicly available [here](https://cogsci.fmph.uniba.sk/metahuman/). It is compiled of over 57,000 images with 15 characters in different eye and head positions. The file names are built like this: "{character name}\_{id}\_OP\_{vertical eye gaze angle}\_{horizontal eye gaze angle}.png".
+The training dataset consists of over 57,000 images generated using Unreal Engine's Metahuman technology, featuring:
+- 15 distinct characters with varied demographics
+- Multiple eye and head positions
+- Dynamic lighting conditions
+- Comprehensive gaze angle coverage
+
+**Naming Convention**: `{character_name}_{id}_OP_{vertical_angle}_{horizontal_angle}.png`
 
 ## Model Architecture
 
-The neural network architectures used for eye-gaze estimation include various configurations of convolutional neural networks (CNNs) and fully connected layers. These architectures are designed to take input images of the eye regions along with head pose information and output the predicted gaze coordinates. Also, after various experiments and optimizations it was found, that giving head pose estimation from the SixDRepNet improves the eye gaze estimation results.
+The system employs a multi-stage pipeline:
 
-## Model Evaluation
+1. **Face Detection**: RetinaFace localizes faces in input frames
+2. **Head Pose Estimation**: SixDRepNet calculates 6D head orientation
+3. **Gaze Prediction**: CNN processes eye regions alongside head pose data to estimate gaze coordinates
 
-The performance of the eye-gaze estimation models is evaluated on multiple datasets, including the Metahuman dataset, [Columbia Gaze dataset](https://www.cs.columbia.edu/CAVE/databases/columbia_gaze/) and a combined dataset. Cross-validation across those datasets demonstrates the accuracy and robustness of the trained models across different scenarios and lighting conditions.
+The architecture combines convolutional layers for feature extraction with fully connected layers for regression, optimized through extensive experimentation.
 
-### Cross-Validation Results
-![crossval](https://github.com/flakeua/BachelorsThesis/assets/26747964/5a8e4f51-df51-43c2-82da-fd7a27d23c6d)
+## Performance
 
+The models have been validated across multiple datasets:
+- Metahuman synthetic dataset
+- Columbia Gaze dataset
+- Combined cross-dataset evaluation
 
-## Conclusion
-
-The thesis demonstrates the effectiveness of using ANNs for eye-gaze estimation in HRI applications. By leveraging advanced technologies such as Unreal Engine, Metahuman, and state-of-the-art neural network architectures, accurate and robust remote eye-gaze estimation systems can be developed without the need for specialized hardware. Further research could focus on improving the models' performance under challenging conditions such as poor lighting or occlusions.
+Cross-validation demonstrates strong generalization capabilities and robustness across varying lighting conditions and subject demographics.

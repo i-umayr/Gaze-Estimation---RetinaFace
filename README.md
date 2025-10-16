@@ -50,3 +50,4 @@ The models have been validated across multiple datasets:
 - Combined cross-dataset evaluation
 
 Cross-validation demonstrates strong generalization capabilities and robustness across varying lighting conditions and subject demographics.
+![crossval](https://github.com/flakeua/BachelorsThesis/assets/26747964/5a8e4f51-df51-43c2-82da-fd7a27d23c6d)
